@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import CloseIcon from './ui/CloseIcon';
 
 type Props = {
@@ -7,11 +7,15 @@ type Props = {
 };
 
 export default function AddTaskModal({ onAdd, onClose }: Props) {
-  const [addTodo, setAddTodo] = useState('');
+  const [text, setText] = useState('');
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onAdd({ id: uuidv4(), text, status: false });
+  };
   return (
     <section className='fixed top-0 left-0 flex flex-col items-center justify-center w-full h-full bg-neutral-900/70'>
       <div className='w-4/5 h-1/5 bg-white max-w-md'>
-        <form action=''>
+        <form onSubmit={handleSubmit}>
           <button
             onClick={() => onClose()}
             className='fixed top-0 right-0 p-8 text-gray-900'
@@ -23,7 +27,7 @@ export default function AddTaskModal({ onAdd, onClose }: Props) {
             autoFocus
             placeholder='Add Task...'
             value={addTodo}
-            onChange={(e) => setAddTodo(e.target.value)}
+            onChange={(e) => setText(e.target.value)}
           />
           <button>Add</button>
         </form>
