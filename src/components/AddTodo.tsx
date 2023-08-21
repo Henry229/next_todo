@@ -3,10 +3,25 @@
 import { useState } from 'react';
 import ModalPortal from './ui/ModalPortal';
 import AddTaskModal from './AddTaskModal';
+import { Todo } from '@/models/todo';
+import { TodoList } from './TodoList';
 
 export default function AddTodo() {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
+  const [todos, setTodos] = useState([
+    { id: '123', text: 'Buy milk', status: 'active' },
+    { id: '124', text: 'Shopping', status: 'Active' },
+  ]);
+  const handleAdd = (todo: Todo) => {
+    setTodos([...todos, todo]);
+    setOpenModal(false);
+  };
+
+  const handleDelete = (todo: Todo) => {
+    setTodos(todos.filter((t) => t.id !== todo.id));
+  };
+
   return (
     <section className='flex flex-col'>
       <button
@@ -19,12 +34,21 @@ export default function AddTodo() {
         <p>Task</p>
         <p>Action</p>
       </div>
+      <ul>
+        {todos &&
+          todos.map((todo) => (
+            <li key={todo.id}>
+              <TodoList
+                todoItem={todo}
+                onUpdate={handleUpdate}
+                onDelete={handleDelete}
+              />
+            </li>
+          ))}
+      </ul>
       {openModal && (
         <ModalPortal>
-          <AddTaskModal
-            onAdd={() => setOpenModal(false)}
-            onClose={() => setOpenModal(false)}
-          />
+          <AddTaskModal onAdd={handleAdd} onClose={() => setOpenModal(false)} />
         </ModalPortal>
       )}
     </section>
