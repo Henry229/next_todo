@@ -5,17 +5,31 @@ import ModalPortal from './ui/ModalPortal';
 import AddTaskModal from './AddTaskModal';
 import { Todo } from '@/models/todo';
 import { TodoList } from './TodoList';
+import UpdateTaskModal from './UpdateTaskModal';
 
 export default function AddTodo() {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
+  const [updateTodo, setUpdateTodo] = useState<Todo | null>(null);
   const [todos, setTodos] = useState([
     { id: '123', text: 'Buy milk', status: 'active' },
     { id: '124', text: 'Shopping', status: 'Active' },
   ]);
+
   const handleAdd = (todo: Todo) => {
     setTodos([...todos, todo]);
     setOpenModal(false);
+  };
+
+  const onUpdate = (todo: Todo) => {
+    setUpdateTodo(todo);
+    setOpenModal(true);
+  };
+
+  const handleUpdate = (updateItem: Todo) => {
+    setTodos(todos.map((t) => (t.id === updateItem.id ? updateItem : t)));
+    setOpenModal(false);
+    setUpdateTodo(null);
   };
 
   const handleDelete = (todo: Todo) => {
@@ -40,7 +54,7 @@ export default function AddTodo() {
             <li key={todo.id}>
               <TodoList
                 todoItem={todo}
-                onUpdate={handleUpdate}
+                onUpdate={onUpdate}
                 onDelete={handleDelete}
               />
             </li>
@@ -48,7 +62,18 @@ export default function AddTodo() {
       </ul>
       {openModal && (
         <ModalPortal>
-          <AddTaskModal onAdd={handleAdd} onClose={() => setOpenModal(false)} />
+          {updateTodo ? (
+            <UpdateTaskModal
+              todoUpdate={updateTodo}
+              onUpdate={handleUpdate}
+              onClose={() => setOpenModal(false)}
+            />
+          ) : (
+            <AddTaskModal
+              onAdd={handleAdd}
+              onClose={() => setOpenModal(false)}
+            />
+          )}
         </ModalPortal>
       )}
     </section>
