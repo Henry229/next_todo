@@ -16,8 +16,8 @@ export function TodoList({ todos }: Props) {
     <div className='overflow-x-auto'>
       <table className='table w-full text-white'>
         {/* head */}
-        <thead className='text-neutral-400 text-lg '>
-          <tr>
+        <thead className='text-neutral-400'>
+          <tr className='text-lg'>
             <th>Tasks</th>
             <th>Actions</th>
           </tr>

@@ -1,60 +1,60 @@
 'use client';
 
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import ModalPortal from './ui/ModalPortal';
 import AddTaskModal from './AddTaskModal';
 import { Todo } from '@/models/todo';
 import { TodoList } from './TodoList';
+import { addTodo } from '@/api';
+import Modal from './Modal';
+import { useRouter } from 'next/navigation';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function AddTodo() {
-  const [openModal, setOpenModal] = useState(false);
-  const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
-  const handleOpenModal = () => setOpenModal(true);
+  const router = useRouter();
+  const [openModalAdd, setOpenModalAdd] = useState(false);
+  const [addTask, setAddTask] = useState<string>('');
+  const handleOpenModal = () => setOpenModalAdd(true);
   const [todos, setTodos] = useState([
-    { id: '123', text: 'Buy milk', status: 'active' },
+    { id: '123', text: 'Buy milk', status: 'Active' },
     { id: '124', text: 'Shopping', status: 'Active' },
   ]);
-  const handleAdd = (todo: Todo) => {
-    setTodos([...todos, todo]);
-    setOpenModal(false);
+  const handleSubmitAdd = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await addTodo({
+      id: uuidv4(),
+      text: addTask,
+      status: 'Active',
+    });
+    // setTodos([...todos, todo]);
+    setAddTask('');
+    setOpenModalAdd(false);
+    router.refresh();
   };
-
-  const handleUpdate = (todo: Todo) => {
-    setTodos(todos.map((t) => (t.id === todo.id ? todo : t)));
-    setEditingTodo(todo);
-    setOpenModal(false);
-  };
-
-  const handleDelete = (todo: Todo) => {
-    setTodos(todos.filter((t) => t.id !== todo.id));
-  };
+  const handleCloseModal = () => setOpenModalAdd(false);
 
   return (
     <section className=''>
-      <button onClick={handleOpenModal} className='btn btn-primary btn-wide'>
+      <button onClick={handleOpenModal} className='btn btn-primary w-full'>
         Add New Task +
       </button>
-      {/* <div className='bg-cyan-600 text-white flex justify-between px-8 py-2 mt-2'>
-        <p>Task</p>
-        <p>Action</p>
-      </div>
-      <ul>
-        {todos &&
-          todos.map((todo) => (
-            <li key={todo.id}>
-              <TodoList
-                todoItem={todo}
-                onUpdate={handleUpdate}
-                onDelete={handleDelete}
-              />
-            </li>
-          ))}
-      </ul>
-      {openModal && (
-        <ModalPortal>
-          <AddTaskModal onAdd={handleAdd} onClose={() => setOpenModal(false)} />
-        </ModalPortal>
-      )} */}
+      <Modal modalOpen={openModalAdd} closeModal={handleCloseModal}>
+        <form onSubmit={handleSubmitAdd}>
+          <h3 className='font-bold text-lg'>Add new task</h3>
+          <div className='modal-action'>
+            <input
+              value={addTask}
+              onChange={(e) => setAddTask(e.target.value)}
+              type='text'
+              placeholder='Add Todo..'
+              className='input input-bordered w-full'
+            />
+            <button type='submit' className='btn'>
+              Add
+            </button>
+          </div>
+        </form>
+      </Modal>
     </section>
   );
 }

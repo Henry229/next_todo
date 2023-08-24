@@ -1,5 +1,5 @@
 import { BiEdit } from 'react-icons/bi';
 
 export default function EditIcon() {
-  return <BiEdit className='w-5 h-5 text-sky-500' />;
+  return <BiEdit className='w-7 h-7 text-sky-500' />;
 }

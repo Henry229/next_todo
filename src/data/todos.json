@@ -1,0 +1,24 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "text": "go to market",
+      "status": "Active"
+    },
+    {
+      "id": "2",
+      "text": "learn math",
+      "status": "Active"
+    },
+    {
+      "id": "4af2213a-f09d-43ef-b93b-bd4e5212aeae",
+      "text": "Studying Math",
+      "status": "Active"
+    },
+    {
+      "id": "d8b65436-a9cf-4312-87aa-40da0f106353",
+      "text": "Buying Milk",
+      "status": "Active"
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import { getAllTodos } from '@/api';
 import AddTodo from '@/components/AddTodo';
 import { TodoList } from '@/components/TodoList';
 import { Todo } from '@/models/todo';
@@ -8,11 +9,12 @@ import { Todo } from '@/models/todo';
 //   status: string;
 // }
 
-export default function Home() {
-  const todos: Todo[] = [
-    { id: '123', text: 'Buy milk', status: 'Active' },
-    { id: '124', text: 'Shopping', status: 'Active' },
-  ];
+export default async function Home() {
+  const tasks = await getAllTodos();
+  // const todos: Todo[] = [
+  //   { id: '123', text: 'Buy milk', status: 'Active' },
+  //   { id: '124', text: 'Shopping', status: 'Active' },
+  // ];
 
   return (
     <body className='max-w-4xl mx-auto mt-4'>
@@ -21,7 +23,7 @@ export default function Home() {
         <AddTodo />
         {/* <div id='portal' /> */}
       </div>
-      <TodoList todos={todos} />
+      <TodoList todos={tasks} />
     </body>
   );
 }
