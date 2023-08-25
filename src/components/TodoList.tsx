@@ -11,7 +11,8 @@ type Props = {
   // onDelete: (todo: Todo) => void;
 };
 
-export function TodoList({ todos }: Props) {
+export function TodoList() {
+  // export function TodoList({ todos }: Props) {
   return (
     <div className='overflow-x-auto'>
       <table className='table w-full text-white'>
@@ -23,9 +24,9 @@ export function TodoList({ todos }: Props) {
           </tr>
         </thead>
         <tbody>
-          {todos.map((task) => (
+          {/* {todos.map((task) => (
             <Task key={task.id} task={task} />
-          ))}
+          ))} */}
         </tbody>
       </table>
     </div>
