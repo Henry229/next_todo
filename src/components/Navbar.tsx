@@ -6,6 +6,9 @@ export default function Navbar() {
       <Link href='/'>
         <h1 className='text-3xl font-bold'>Nextjs Todo</h1>
       </Link>
+      <Link className='btn btn-primary p-2' href={'/addTask'}>
+        Add Task
+      </Link>
     </section>
   );
 }

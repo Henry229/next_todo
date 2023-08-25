@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang='en' className={openSan.className}>
       <body className='max-w-4xl mx-auto mt-4'>
-        <header className='sticky top-0 z-10 bg-white border-b'>
+        <header className='sticky top-0 z-10 bg-slate-800 px-8 py-3 rounded-md'>
           <div className='max-w-screen-xl mx-auto'>
             <Navbar />
           </div>
