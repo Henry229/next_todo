@@ -4,6 +4,7 @@ import { FormEvent, useState } from 'react';
 import { addTodo } from '@/api';
 import { useRouter } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid';
+import GridSpinner from '@/components/ui/GridSpinner';
 
 export default function AddTaskPage() {
   const router = useRouter();
@@ -32,13 +33,13 @@ export default function AddTaskPage() {
           return;
         }
         // api로 db에 insert가 제대로 이뤄졌다면 홈 경로로 이동한다.
+        setAddTask('');
         router.push('/');
       })
       .catch((err) => setError(err.toString()))
       .finally(() => setLoading(false));
 
     // setTodos([...todos, todo]);
-    setAddTask('');
     // setOpenModalAdd(false);
     // router.refresh();
   };
@@ -47,6 +48,16 @@ export default function AddTaskPage() {
 
   return (
     <section className=''>
+      {loading && (
+        <div className='absolute inset-0 z-20 text-center pt-[30%] bg-sky-500/20'>
+          <GridSpinner />
+        </div>
+      )}
+      {error && (
+        <p className='w-full p-4 mb-4 font-bold text-center text-red-600 bg-red-100'>
+          {error}
+        </p>
+      )}
       <form onSubmit={handleSubmitAdd}>
         <h3 className='font-bold text-lg'>Add new task</h3>
         <div className='modal-action'>
