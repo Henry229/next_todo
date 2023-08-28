@@ -1,5 +1,10 @@
-import { createTask } from '@/services/task';
+import { createTask, getAllTasks } from '@/services/task';
 import { NextRequest, NextResponse } from 'next/server';
+
+export async function GET() {
+  return getAllTasks() //
+    .then((data) => NextResponse.json(data));
+}
 
 export async function POST(req: NextRequest) {
   const form = await req.formData();

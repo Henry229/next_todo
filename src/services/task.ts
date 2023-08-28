@@ -27,6 +27,19 @@ export async function createTask(text: string, status: string) {
   }
 }
 
+export async function getAllTasks() {
+  await connectDB(); // MongoDB에 연결
+
+  try {
+    const tasks = await TodoModel.find(); // 모든 Todo 가져오기
+    console.log('///// tasks: ', tasks);
+
+    return tasks;
+  } catch (error) {
+    throw error;
+  }
+}
+
 //   const uri = process.env.ATLAS_DB_URL!
 
 //   return fetch(uri, {

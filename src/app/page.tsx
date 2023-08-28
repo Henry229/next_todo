@@ -1,5 +1,6 @@
 // import { getAllTodos } from '@/api';
 import AddTodo from '@/components/AddTodo';
+import TaskList from '@/components/TaskList';
 import { TodoList } from '@/components/TodoList';
 import { Todo } from '@/models/todo';
 
@@ -19,7 +20,7 @@ export default async function Home() {
   return (
     <section className='w-full'>
       <div>
-        <TodoList />
+        <TaskList />
       </div>
     </section>
   );
