@@ -22,6 +22,8 @@ export async function createTask(text: string, status: string) {
   try {
     const newTodo = new TodoModel(task);
     const result = await newTodo.save(); // 새로운 Todo 저장
+    console.log('@@@@ newTodo : ', result);
+
     return result;
   } catch (error) {
     throw error;

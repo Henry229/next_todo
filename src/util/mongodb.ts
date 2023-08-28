@@ -22,7 +22,7 @@ async function connectDB() {
   } catch (error) {
     console.log(error);
   }
-  // connection.isConnected = db.connections[0].readyState;
+  connection.isConnected = mongoose.connections[0].readyState === 1;
 }
 
 export default connectDB;

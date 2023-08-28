@@ -9,7 +9,7 @@ const getAllTasks = async () => {
       cache: 'no-store',
     });
 
-    console.log('****res : ', res);
+    // console.log('****res : ', res);
     if (!res.ok) {
       throw new Error('Failed to fetch tasks');
     }
@@ -21,13 +21,23 @@ const getAllTasks = async () => {
   }
 };
 
-export default async function TaskList() {
+export async function getServerSideProps() {
   const tasks = await getAllTasks();
-  console.log('>> getTasks : ', tasks);
+  return { props: { initialTasks: tasks } };
+}
+
+interface TaskListProps {
+  initialTasks: Todo[];
+}
+
+export default function TaskList({ initialTasks }: TaskListProps) {
+  // const [tasks, setTasks] = useState
+  // const tasks = await getAllTasks();
+  // console.log('>> getTasks : ', tasks);
 
   return (
     <>
-      {tasks.map((t: Todo) => (
+      {initialTasks?.map((t: Todo) => (
         <div
           key={t._id.toString()}
           className='p-4 border border-slate-300 my-3 flex justify-between gap-5 items-start'
