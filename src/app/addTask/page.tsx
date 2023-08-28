@@ -26,7 +26,7 @@ export default function AddTaskPage() {
     formData.append('text', addTask);
     formData.append('status', 'Active');
 
-    fetch('/api/addTask', { method: 'POST', body: formData }) //
+    fetch('/api/tasks', { method: 'POST', body: formData }) //
       .then((res) => {
         if (!res.ok) {
           setError(`${res.status} ${res.statusText}`);

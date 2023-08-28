@@ -35,9 +35,19 @@ export async function getAllTasks() {
 
   try {
     const tasks = await TodoModel.find(); // 모든 Todo 가져오기
-    console.log('///// tasks: ', tasks);
-
     return tasks;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function deleteTask(id: string) {
+  await connectDB();
+
+  try {
+    const deleteTask = await TodoModel.findByIdAndDelete(id);
+    console.log('///// deleteTasks: ', deleteTask);
+    return deleteTask;
   } catch (error) {
     throw error;
   }
