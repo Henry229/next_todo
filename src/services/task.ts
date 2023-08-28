@@ -7,7 +7,8 @@ const TodoSchema = new mongoose.Schema<Todo>({
   status: String,
 });
 
-const TodoModel = mongoose.model<Todo>('Todo', TodoSchema, 'Tasks');
+const TodoModel =
+  mongoose.models.Todo || mongoose.model<Todo>('Todo', TodoSchema, 'Tasks');
 
 export async function createTask(text: string, status: string) {
   console.log(text, status);

@@ -3,29 +3,27 @@ import Link from 'next/link';
 // import RemoveBtn from './RemoveBtn';
 import { HiPencilAlt } from 'react-icons/hi';
 
-const getTasks = async () => {
+const getAllTasks = async () => {
   try {
     const res = await fetch('http://localhost:3000/api/addTask', {
       cache: 'no-store',
     });
 
+    console.log('****res : ', res);
     if (!res.ok) {
-      throw new Error('Failed to fetch topics');
+      throw new Error('Failed to fetch tasks');
     }
-
-    console.log('****res', res);
 
     return res.json();
   } catch (error) {
-    console.log('Error loading topics: ', error);
+    console.log('Error loading tasks: ', error);
     return [];
   }
 };
 
 export default async function TaskList() {
-  console.log('>> getTasks : ', getTasks());
-
-  const tasks = await getTasks();
+  const tasks = await getAllTasks();
+  console.log('>> getTasks : ', tasks);
 
   return (
     <>
