@@ -53,6 +53,33 @@ export async function deleteTask(id: string) {
   }
 }
 
+export async function getTaskById(id: string) {
+  await connectDB();
+
+  try {
+    const taskById = await TodoModel.findById(id);
+    console.log('///// taskById: ', taskById);
+    return taskById;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateTask(id: string, text: string, status: string) {
+  await connectDB();
+
+  try {
+    const updateTask = await TodoModel.findByIdAndUpdate(id, {
+      text: text,
+      status: status,
+    });
+    console.log('///// updateTask: ', updateTask);
+    return updateTask;
+  } catch (error) {
+    throw error;
+  }
+}
+
 //   const uri = process.env.ATLAS_DB_URL!
 
 //   return fetch(uri, {

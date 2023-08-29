@@ -1,4 +1,9 @@
-import { createTask, deleteTask, getAllTasks } from '@/services/task';
+import {
+  createTask,
+  deleteTask,
+  getAllTasks,
+  updateTask,
+} from '@/services/task';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET() {
@@ -27,5 +32,15 @@ export async function DELETE(req: NextRequest) {
 
   return deleteTask(id) //
     .then((data) => NextResponse.json(data));
-  // return NextResponse.json({ message: 'Topic deleted' }, { status: 200 });
+}
+
+export async function PUT(req: NextRequest) {
+  const { id, text, status } = await req.json();
+
+  if (!id) {
+    return new Response('Bad Request', { status: 400 });
+  }
+
+  return updateTask(id, text, status) //
+    .then((data) => NextResponse.json(data));
 }

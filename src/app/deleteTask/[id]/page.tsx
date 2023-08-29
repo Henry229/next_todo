@@ -9,8 +9,6 @@ type Props = {
 };
 
 export default function DeletePage({ params: { id } }: Props) {
-  console.log('>>> delete page', id);
-
   const router = useRouter();
   const [openModalDeleted, setOpenModalDeleted] = useState(true);
 

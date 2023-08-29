@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 // import RemoveBtn from './RemoveBtn';
 import { HiPencilAlt } from 'react-icons/hi';
 import DeleteIcon from '@/components/ui/DeleteIcon';
+import EditIcon from './ui/EditIcon';
 
 const getAllTasks = async () => {
   try {
@@ -60,8 +61,8 @@ export default function TaskList() {
           </div>
 
           <div className='flex gap-2'>
-            <Link href={`/editTopic/${t._id}`}>
-              <HiPencilAlt size={24} />
+            <Link href={`/updateTask/${t._id.toString()}`}>
+              <EditIcon />
             </Link>
             <Link href={`/deleteTask/${t._id.toString()}`}>
               <DeleteIcon />
